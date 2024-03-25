@@ -1,21 +1,22 @@
-NAME := so_long
+##
+## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
+## 
+## Made by Olivier Crouzet
+## Login   <ol@epitech.net>
+## 
+## Started on  Tue Oct  5 15:56:43 2004 Olivier Crouzet
+## Last update Tue May 15 15:44:41 2007 Olivier Crouzet
+##
 
-CC := gcc
-INCLUDES = -I/usr/include -Imlx1
-CFLAGS := -Wall -Wextra -Werror
+## Please use configure script
 
-SOURCE := checker.c
-LIBRARY := -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-MINILIBX := mlx/
 
-all:
-	make -C $(MINILIBX)
-	$(CC) $(CFLAGS) $(SOURCE) $(INCLUDES) $(LIBRARY) -o $(NAME)
+all	: do_configure
 
-clean:
+do_configure	:
+	./configure
 
-fclean: clean
-		make clean -C $(MINILIBX)
-		rm -rf $(NAME)
+clean	:
+	./configure clean
 
-re: fclean all
+re	: clean all
