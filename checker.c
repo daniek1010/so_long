@@ -19,6 +19,7 @@ int on_destroy(t_data *data)
     return (0);
 }
 
+
 int on_keypress(int keysym, t_data *data)
 {
     (void)data;
