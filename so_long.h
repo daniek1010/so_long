@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 05:52:10 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/02 12:40:40 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:52:49 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_map
 {
     int		row;
     int		column;
-	int		collectible;
+	int		collectable;
 	int		counter;
 	int		exit;
 	int		player;
@@ -70,10 +70,19 @@ typedef struct s_data
 } t_data;
 
 void ft_error_exit(t_data *data, char *str);
+
+/* valid_map_check.c */
 void	ft_valid_path_check(t_data *data);
-int ft_valid_map_check(t_data *data, char *str);
+
 void	ft_render_screen(t_data *data);
 
+/* valid_map_structure.c */
+void	ft_image_error(t_data *data)
+int		ft_valid_map_check(t_data *data, char *str);
+
+/* utils.c */
+char	**ft_create_dup_map(t_data *data);
+void	ft_write(t_data *data, int x);
 
 
 

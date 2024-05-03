@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 06:26:29 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/02 12:39:31 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:25:35 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,13 @@ static void ft_row_check(t_data *data, char *str)
 	{
 		counter++;
 		free(temp);
-		temp = get_next_line(fd);
-		
+		temp = get_next_line(fd);	
 	}
-	
 	if (counter == 0)
 		ft_error_exit(NULL, "Invalid single row");
     data->map.row = counter;
     close (fd);
-	return ;
+	return;
 }
 
 static void ft_add_line(t_data *data, char *str)
@@ -65,8 +63,11 @@ static void ft_add_line(t_data *data, char *str)
 	i = 0;
 	while (data->map.map[i] != NULL)
 	{
-		if (data->map.column != data->map.map[i]) // need to update error to take care of the **map
-			ft_error_exit(data, "Invalid format");
+		if (data->map.column != data->map.map[i])// need to update error to take care of the **map
+		{
+			ft_free_matrix(data->map.map);
+			ft_error_exit(data, "Invalid RECT fmt Only");
+		}
 		i++;
 	}
 	close (fd);
@@ -74,10 +75,6 @@ static void ft_add_line(t_data *data, char *str)
 
 int ft_valid_map_check(t_data *data, char *str)
 {
-    int     fd;
-    int     counter;
-    char    *str;
-
 	if (!valid_extension(str))
 		ft_error_exit(NULL, "Invalid file");
     ft_row_check(data, str);

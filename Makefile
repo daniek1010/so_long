@@ -1,21 +1,36 @@
-NAME := so_long
+NAME = so_long
 
-CC := gcc
-INCLUDES = -I/usr/include -Imlx1
-CFLAGS := -Wall -Wextra -Werror
+CC = gcc
 
-SOURCE := main.c
-LIBRARY := -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-MINILIBX := mlx/
+# INCLUDES = -I/usr/include -Imlx1
+CFLAGS = -Wall -Wextra -Werror -I.
+MLXFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
-all:
+GRAPHICS = $(wildcard srcs/graphics/*.c)
+MAP = $(wildcard srcs/map/*.c)
+UTILS = $(wildcard srcs/*.c)
+
+MINILIBX = mlx/
+LIBFT = comb_libf/
+
+SOURCE = $(GRAPHICS) $(MAP) $(UTILS)
+
+all: $(NAME)
+
+$(NAME):
 	make -C $(MINILIBX)
-	$(CC) $(CFLAGS) $(SOURCE) $(INCLUDES) $(LIBRARY) -o $(NAME)
+	make -C $(LIBFT)
+	$(CC) $(CFLAGS) $(SOURCE) $(MLXFLAGS) -L$(LIBFT) -lft -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
 
 clean:
+	make clean -C $(MINILIBX)
+	make clean -C $(LIBFT)
 
 fclean: clean
-		make clean -C $(MINILIBX)
 		rm -rf $(NAME)
 
 re: fclean all
