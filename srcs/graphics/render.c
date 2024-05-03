@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 07:10:32 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/02 14:02:04 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:10:17 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,28 @@ void	ft_render_screen(t_data *data)
 	}
 }
 
+void	ft_check_postion(t_data *data, int key)
+{
+	data->map.curr_pos
+}
+
+void	ft_check_tile_update(t-data *data, int key)
+{
+	ft_check_postion(data, key);
+	ft_update_postion(data);
+}
+
 int on_keypress(int key, t_data *data)
 {
+	if (key == XK_Escape)
+	else if (key == W) || (key == XK_Up)
+		ft_check_tile_update(data, key);
+	else if (key == S) || (key == XK_Down)
+		ft_check_tile_update(data);
+	else if (key == A) || (key == XK_Left)
+		ft_check_tile_update(data);
+	else if (key == D) || (key == XK_Down)
+		ft_check_tile_update(data);
 	(void)
 	printf("Pressed key: %d\\n", keysym);
 	fflush(stdout);
