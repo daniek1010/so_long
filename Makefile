@@ -4,7 +4,7 @@ CC := gcc
 INCLUDES = -I/usr/include -Imlx1
 CFLAGS := -Wall -Wextra -Werror
 
-SOURCE := checker.c
+SOURCE := main.c
 LIBRARY := -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 MINILIBX := mlx/
 
