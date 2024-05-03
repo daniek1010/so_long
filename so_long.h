@@ -47,6 +47,7 @@ typedef struct s_map
     int		row;
     int		column;
 	int		collectible;
+	int		counter;
 	int		exit;
 	int		player;
 	int		start;
