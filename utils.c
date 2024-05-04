@@ -6,11 +6,24 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 00:32:33 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 00:52:37 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/04 06:49:17 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
+
+void	free_matrix(char *str[])
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 
 char	**ft_create_dup_map(t_data *data)
 {
@@ -19,15 +32,15 @@ char	**ft_create_dup_map(t_data *data)
 
 	dup_map = malloc ((data->map.row + 1) * (sizeof(char *)));
 	if (!dup_map)
-		ft_error_exit(data, "Malloc Failed");
+		ft_error_exit(data, "Malloc Failed", 2);
 	i = -1;
 	while (++i < data->map.row)
 	{
 		dup_map[i] = ft_strdup(data->map.map[i]);
 		if (!dup_map)
 		{
-			ft_free_matrix(dup_map);
-			ft_error_exit(data, "Malloc failed");
+			free_matrix(dup_map);
+			ft_error_exit(data, "Malloc failed", 2);
 		}
 	}
 	dup_map[i] = NULL;

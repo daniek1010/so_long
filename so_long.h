@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 05:52:10 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 00:52:49 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/04 07:52:58 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <sys/stat.h>
-#include "mlx/mlx.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
 
-#include "./comb_libft/ft_printf.h"
 
-# define TILE_SIZE 32;
+#include "comb_libft/ft_printf.h"
+#include "mlx/mlx.h"
+
+
+# define TILE_SIZE 200
 
 # define WALL_TILE "./game_images/wall.xpm"
 # define FLOOR_TILE "./game_images/floor.xpm"
@@ -65,11 +67,12 @@ typedef struct s_data
 	void	*exit;
 	void	*coin;
 	void	*player;
+	bool	flag;
 	t_map	map;
 	
 } t_data;
 
-void ft_error_exit(t_data *data, char *str);
+void ft_error_exit(t_data *data, char *str, int x);
 
 /* valid_map_check.c */
 void	ft_valid_path_check(t_data *data);
@@ -77,7 +80,7 @@ void	ft_valid_path_check(t_data *data);
 void	ft_render_screen(t_data *data);
 
 /* valid_map_structure.c */
-void	ft_image_error(t_data *data)
+void	ft_image_error(t_data *data);
 int		ft_valid_map_check(t_data *data, char *str);
 
 /* utils.c */
@@ -86,10 +89,13 @@ void	ft_write(t_data *data, int x);
 
 
 
+int	on_destroy(t_data *data);
+int on_keypress(t_data *data, int key);
 
 
 
 
+char	*get_nexttt_line(int fd);
 
 
 

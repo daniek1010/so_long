@@ -6,18 +6,18 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 06:26:29 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 00:25:35 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/04 09:19:58 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "so_long.h"
 
 static int	valid_extension(char *str)
 {
 	int		len;
 
 	len = ft_strlen(str) - 4;
-	if (ft_strncmp(".ber", str[len], 4))
+	if (ft_strncmp(".ber", str + len, 4))
 		return (0);
 	return (1);
 }
@@ -28,8 +28,9 @@ static void ft_row_check(t_data *data, char *str)
     int		counter;
     char    *temp;
 	
-	if (fd = open(str, O_RDONLY) < 1)
-        ft_error_exit(NULL, "Couldn't Open file");
+	fd = open(str, O_RDONLY);
+	if (fd < 1)
+        ft_error_exit(NULL, "Couldn't Open file", 2);
 	counter = 0;
     temp = get_next_line(fd);
 	while (temp != NULL)
@@ -39,7 +40,7 @@ static void ft_row_check(t_data *data, char *str)
 		temp = get_next_line(fd);	
 	}
 	if (counter == 0)
-		ft_error_exit(NULL, "Invalid single row");
+		ft_error_exit(NULL, "Invalid single row", 2);
     data->map.row = counter;
     close (fd);
 	return;
@@ -49,25 +50,21 @@ static void ft_add_line(t_data *data, char *str)
 {
     int		fd;
     int		i;
-    char    *temp;
 	
-	if (fd = open(str, O_RDONLY) < 1)
-        ft_error_exit(NULL, "Couldn't Open file");
+	fd = open(str, O_RDONLY);
+	if (fd < 1)
+        ft_error_exit(NULL, "Couldn't Open file", 2);
 	i = 0;
     data->map.map[i] = get_next_line(fd);
-	while (data->map.map[i] != NULL)
+	while (i < data->map.row)
 		data->map.map[++i] = get_next_line(fd);
 	data->map.map[i] = NULL;
-	//possible error based on size if '\n' char is needed for the size or not;
 	data->map.column = ft_strlen(data->map.map[0]);
 	i = 0;
 	while (data->map.map[i] != NULL)
 	{
-		if (data->map.column != data->map.map[i])// need to update error to take care of the **map
-		{
-			ft_free_matrix(data->map.map);
-			ft_error_exit(data, "Invalid RECT fmt Only");
-		}
+		if (data->map.column != (int)ft_strlen(data->map.map[i]))
+			ft_error_exit(NULL, "Invalid rectangular map fmt only", 1);
 		i++;
 	}
 	close (fd);
@@ -76,22 +73,9 @@ static void ft_add_line(t_data *data, char *str)
 int ft_valid_map_check(t_data *data, char *str)
 {
 	if (!valid_extension(str))
-		ft_error_exit(NULL, "Invalid file");
+		ft_error_exit(NULL, "Invalid file", 2);
     ft_row_check(data, str);
 	data->map.map = malloc((data->map.row + 1 ) * (sizeof(char *)));
 	ft_add_line(data, str);
-}
-
-void	ft_image_error(t_data *data)
-{
-	if (!data->floor)
-		ft_error_exit(data, "FLOOR_XPM error");
-	if (!data->wall)
-		ft_error_exit(data, "WALL_XPM error");
-	if (!data->coin)
-		ft_error_exit(data, "COIN_XPM error");
-	if (!data->player)
-		ft_error_exit(data, "PLAYER_XPM error");
-	if (!data->exit)
-		ft_error_exit(data, "EXIT_XPM error");
+	return (1);
 }
