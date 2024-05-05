@@ -1,40 +1,5 @@
-#include "mlx/mlx.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
-
-
- #include "so_long.h"
+#include "so_long.h"
  
-void	ft_destroy(t_data *data)
-{
-	if (data == NULL)
-		return ;
-	ft_putstr_fd("ThIst\n", 2);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-}
-
-void ft_error_exit(t_data *data, char *str, int x)
-{
-	ft_putstr_fd("ThIs is aanother test %d\n", 2);
-	printf("x == %d\n", x);
-	if (x == 0)
-	{
-		free_matrix(data->map.map);
-		ft_destroy(data);
-	}
-	else if (x == 1)
-		ft_putstr_fd("ThIs is aanother test %d\n", 2);
-	ft_putstr_fd("Error\n", 1);
-	ft_putstr_fd(str, 1);
-	
-	
-	exit(0);
-}
-
 void	ft_check_args(int argc, char *argv[])
 {
 	if (argc != 2)

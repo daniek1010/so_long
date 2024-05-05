@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
+/*   By: danevans <danevans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 23:35:30 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 06:47:19 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:20:27 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static int	ft_check_postion(t_data *data, int x_axis, int y_axis)
 	{
 		data->map.collectable--;
 		data->map.counter++;
-		data->map.curr_pos = (t_pos) {y_axis, x_axis};
+		data->map.curr_pos = (t_pos){y_axis, x_axis};
 		ft_write(data, 2);
 		ft_write(data, 3);
 	}
 	else if (data->map.map[y_axis][x_axis] == '0')
 	{
 		data->map.counter++;
-		data->map.curr_pos = (t_pos) {y_axis, x_axis};
+		data->map.curr_pos = (t_pos){y_axis, x_axis};
 		ft_write(data, 3);
 	}
 	return (0);
@@ -52,7 +52,7 @@ static int	ft_vertical_w_s(t_data *data, char c)
 	else
 		x_axis++;
 	if (data->map.map[y_axis][x_axis] != '1')
-		return(ft_check_postion(data, x_axis, y_axis));
+		return (ft_check_postion(data, x_axis, y_axis));
 	return (1);
 }
 
@@ -78,7 +78,7 @@ int	on_destroy(t_data *data)
 	return (0);
 }
 
-int on_keypress(t_data *data, int key)
+int	on_keypress(t_data *data, int key)
 {
 	if (key == XK_Escape)
 		on_destroy(data);
