@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map_structure.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danevans <danevans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 06:26:29 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/05 17:17:59 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/06 07:53:32 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_row_check(t_data *data, char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd < 1)
-		ft_error_exit(NULL, "Couldn't Open file", 2);
+		ft_error_exit(NULL, "Couldn't Open file");
 	counter = 0;
 	temp = get_next_line(fd);
 	while (temp != NULL)
@@ -40,7 +40,7 @@ static void	ft_row_check(t_data *data, char *str)
 		temp = get_next_line(fd);
 	}
 	if (counter == 0)
-		ft_error_exit(NULL, "Invalid single row", 2);
+		ft_error_exit(NULL, "Invalid single row");
 	data->map.row = counter;
 	close(fd);
 	return ;
@@ -53,7 +53,7 @@ static void	ft_add_line(t_data *data, char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd < 1)
-		ft_error_exit(NULL, "Couldn't Open file", 2);
+		ft_error_exit(data, "Couldn't Open file");
 	i = 0;
 	data->map.map[i] = get_next_line(fd);
 	while (i < data->map.row)
@@ -64,7 +64,7 @@ static void	ft_add_line(t_data *data, char *str)
 	while (data->map.map[i] != NULL)
 	{
 		if (data->map.column != (int)ft_strlen(data->map.map[i]))
-			ft_error_exit(NULL, "Invalid rectangular map fmt only", 1);
+			ft_error_exit(data, "Invalid rectangular map fmt only");
 		i++;
 	}
 	close (fd);
@@ -73,7 +73,7 @@ static void	ft_add_line(t_data *data, char *str)
 int	ft_valid_map_check(t_data *data, char *str)
 {
 	if (!valid_extension(str))
-		ft_error_exit(NULL, "Invalid file", 2);
+		ft_error_exit(data, "Invalid file");
 	ft_row_check(data, str);
 	data->map.map = malloc((data->map.row + 1) * (sizeof(char *)));
 	ft_add_line(data, str);

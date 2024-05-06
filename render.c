@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 07:10:32 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 07:33:00 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/06 07:51:37 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	ft_image_error(t_data *data)
 {
 	if (!data->floor)
-		ft_error_exit(data, "FLOOR_XPM error", 0);
+		ft_error_exit(data, "FLOOR_XPM error");
 	if (!data->wall)
-		ft_error_exit(data, "WALL_XPM error", 0);
+		ft_error_exit(data, "WALL_XPM error");
 	if (!data->coin)
-		ft_error_exit(data, "COIN_XPM error", 0);
+		ft_error_exit(data, "COIN_XPM error");
 	if (!data->player)
-		ft_error_exit(data, "PLAYER_XPM error", 0);
+		ft_error_exit(data, "PLAYER_XPM error");
 	if (!data->exit)
-		ft_error_exit(data, "EXIT_XPM error", 0);
+		ft_error_exit(data, "EXIT_XPM error");
 }
 
 static void	ft_open_image(t_data *data)
@@ -42,7 +42,6 @@ static void	ft_open_image(t_data *data)
 	data->exit = mlx_xpm_file_to_image(data->mlx_ptr, EXIT_TILE,
 			&tile_width, &tile_height);
 	ft_image_error(data);
-	
 }
 
 void	ft_render_screen(t_data *data)
@@ -75,5 +74,3 @@ void	ft_render_screen(t_data *data)
 		}
 	}
 }
-
-

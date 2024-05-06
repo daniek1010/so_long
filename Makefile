@@ -39,13 +39,13 @@ NAME = so_long
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I. -I./comb_libft
+CFLAGS = -Wall -Werror -Wextra -I. -I./comb_libft
 
 MLXFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
 MINILIBX = mlx/
 LIBFT = ./comb_libft/
-LIBFTPRINT = ./comb_libft/libftprintf.a # Assuming the library name is libftprint.a, adjust if different
+LIBFTPRINT = ./comb_libft/libftprintf.a
 
 SOURCE = $(wildcard *.c)
 
@@ -62,8 +62,10 @@ clean:
 	rm -f *.o
 
 fclean: clean
+	make fclean -C $(LIBFT)
 	rm -rf $(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+# .SILENT
