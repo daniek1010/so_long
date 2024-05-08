@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 08:20:25 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/06 08:23:19 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:13:19 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	data.flag = false;
 	ft_check_args(argc, argv);
+	ft_data_init(&data);
 	ft_valid_map_check(&data, argv[1]);
 	ft_valid_path_check(&data);
 	data.mlx_ptr = mlx_init();

@@ -6,13 +6,13 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 23:35:30 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/06 08:18:57 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 04:03:36 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	ft_check_postion(t_data *data, int y_axis, int x_axis)
+int	ft_check_postion(t_data *data, int y_axis, int x_axis)
 {
 	static int	counter = 0;
 
@@ -21,34 +21,24 @@ static int	ft_check_postion(t_data *data, int y_axis, int x_axis)
 		data->map.collectable--;
 		counter++;
 		data->map.curr_pos = (t_pos){x_axis, y_axis};
-		mlx_put_image_to_window(data->mlx_ptr,
-			data->win_ptr, data->player, x_axis * TILE_SIZE,
-			y_axis * TILE_SIZE);
-		ft_write(data, 2, counter);
-		ft_write(data, 3, 0);
+		ft_image_window(data, x_axis, y_axis, data->player);
+		ft_write(data, 3, counter);
 	}
 	else if (data->map.map[y_axis][x_axis] == '0')
 	{
 		counter++;
 		data->map.curr_pos = (t_pos){x_axis, y_axis};
-		mlx_put_image_to_window(data->mlx_ptr,
-			data->win_ptr, data->player, x_axis * TILE_SIZE,
-			y_axis * TILE_SIZE);
+		ft_image_window(data, x_axis, y_axis, data->player);
+		ft_write(data, 2, counter);
+	}
+	else if (data->map.map[y_axis][x_axis] == 'E')
+	{
+		counter++;
+		data->map.curr_pos = (t_pos){x_axis, y_axis};
+		ft_image_window(data, x_axis, y_axis, data->player);
 		ft_write(data, 2, counter);
 	}
 	return (0);
-}
-
-static int	ft_check_exit(t_data *data, int y_axis, int x_axis)
-{
-	if (data->map.collectable != 0)
-		return (1);
-	mlx_put_image_to_window(data->mlx_ptr,
-		data->win_ptr, data->player, x_axis * TILE_SIZE,
-		y_axis * TILE_SIZE);
-	ft_write(data, 1, 0);
-	ft_destroy(data);
-	exit (0);
 }
 
 static int	ft_vertical_w_s(t_data *data, char c)
@@ -66,16 +56,15 @@ static int	ft_vertical_w_s(t_data *data, char c)
 	if (data->map.map[y_axis][x_axis] == '1')
 		return (1);
 	if (data->map.map[y_axis][x_axis] == 'E')
-	{
-		if (!ft_check_exit(data, y_axis, x_axis))
-			return (1);
-	}
+		ft_check_exit_w(data, y_axis, x_axis, new_y);
 	else
 	{
 		ft_check_postion(data, y_axis, x_axis);
-		data->map.map[new_y][x_axis] = '0';
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->floor, x_axis * TILE_SIZE, new_y * TILE_SIZE);
+		if (data->flag2)
+			ft_update_tiles(data, new_y, x_axis, 'E');
+		else
+			ft_update_tiles(data, new_y, x_axis, '0');
+		data->flag2 = false;
 	}
 	return (0);
 }
@@ -95,16 +84,15 @@ static int	ft_horizontal_a_d(t_data *data, char c)
 	if (data->map.map[y_axis][x_axis] == '1')
 		return (1);
 	if (data->map.map[y_axis][x_axis] == 'E')
-	{
-		if (!ft_check_exit(data, y_axis, x_axis))
-			return (1);
-	}
+		ft_check_exit(data, y_axis, x_axis, new_x);
 	else
 	{
 		ft_check_postion(data, y_axis, x_axis);
-		data->map.map[y_axis][new_x] = '0';
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->floor, new_x * TILE_SIZE, y_axis * TILE_SIZE);
+		if (data->flag2)
+			ft_update_tiles(data, y_axis, new_x, 'E');
+		else
+			ft_update_tiles(data, y_axis, new_x, '0');
+		data->flag2 = false;
 	}
 	return (0);
 }

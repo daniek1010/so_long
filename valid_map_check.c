@@ -6,17 +6,25 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 10:49:33 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/06 08:26:54 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:42:34 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	ft_data_init(t_data *data)
+void	ft_data_init(t_data *data)
 {
 	data->map.exit = 0;
 	data->map.collectable = 0;
 	data->map.player = 0;
+	data->floor = NULL;
+	data->player = NULL;
+	data->exit = NULL;
+	data->coin = NULL;
+	data->wall = NULL;
+	data->mlx_ptr = NULL;
+	data->win_ptr = NULL;
+	data->flag2 = false;
 }
 
 static void	ft_check_element(t_data *data)
@@ -26,10 +34,10 @@ static void	ft_check_element(t_data *data)
 
 	ft_data_init(data);
 	i = -1;
-	while (++i < data->map.row)
+	while (++i < data->map.row - 1)
 	{
 		j = -1;
-		while (++j < data->map.column)
+		while (++j < data->map.column - 1)
 		{
 			if ((data->map.map[i][j] != 'E') && (data->map.map[i][j] != 'P') &&
 				(data->map.map[i][j] != 'C')
@@ -53,24 +61,30 @@ static void	ft_check_wall_wrong_info(t_data *data)
 	int		i;
 
 	if (data->map.collectable == 0)
-		ft_error_exit(data, "Invalid No collectable");
+		ft_error_exit(data, "Invalid No collectable\n");
 	if ((data->map.exit > 1) || (data->map.exit == 0))
-		ft_error_exit(data, "Invalid Mutiple Exit");
+		ft_error_exit(data, "Invalid Mutiple Exit\n");
 	if ((data->map.player > 1) || (data->map.player == 0))
-		ft_error_exit(data, "Invalid Num of Players");
+		ft_error_exit(data, "Invalid Num of Players\n");
 	i = -1;
 	while (++i < data->map.column)
-		if ((data->map.map[0][i] != '1') &&
-			(data->map.map[data->map.row - 1][i] != '1'))
-			ft_error_exit(data, "Invalid ! Map should be guided");
+	{
+		if (data->map.map[0][i] != '1')
+			ft_error_exit(data, "Invalid ! Map should be guided\n");
+		if (data->map.map[data->map.row - 1][i] != '1')
+			ft_error_exit(data, "Invalid ! Map should be guided\n");
+	}
 	i = -1;
 	while (++i < data->map.row)
-		if ((data->map.map[i][0] != '1') &&
-			(data->map.map[i][data->map.column - 1] != '1'))
-			ft_error_exit(data, "Invalid ! Map should be guided");
+	{
+		if (data->map.map[i][0] != '1')
+			ft_error_exit(data, "Invalid ! Map should be guided\n");
+		if (data->map.map[i][data->map.column - 1] != '1')
+			ft_error_exit(data, "Invalid ! Map should be guided\n");
+	}
 }
 
-bool	ft_flood_fill(t_data *data, char **dup_map, t_pos curr_pos)
+static bool	ft_flood_fill(t_data *data, char **dup_map, t_pos curr_pos)
 {
 	static int	coin = 0;
 	static bool	exit = false;
@@ -103,7 +117,7 @@ void	ft_valid_path_check(t_data *data)
 	if (!result)
 	{
 		free_matrix(dup_map);
-		ft_error_exit(data, "Invalid Path not found");
+		ft_error_exit(data, "Invalid Path not found??\n");
 	}
 	free_matrix(dup_map);
 }

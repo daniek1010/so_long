@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 11:52:22 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 04:50:44 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:49:36 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		**ft_split(char const *s, char c);
 char		*get_next_line(int fd);
 void		free_matrix(char *str[]);
+char		*trim_free(char *s1, char const *set);
 
 #endif

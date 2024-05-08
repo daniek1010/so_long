@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 05:52:10 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/06 08:28:04 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:46:16 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,30 @@ typedef struct s_data
 	t_map	map;
 }	t_data;
 
-void	ft_error_exit(t_data *data, char *str);
-void	ft_destroy(t_data *data);
-
-/* valid_map_check.c */
-void	ft_valid_path_check(t_data *data);
-
-void	ft_render_screen(t_data *data);
-
-/* valid_map_structure.c */
-void	ft_image_error(t_data *data);
-int		ft_valid_map_check(t_data *data, char *str);
-
-/* utils.c */
-char	**ft_create_dup_map(t_data *data);
-void	ft_write(t_data *data, int x, int counter);
-
 /*for keys*/
 int		on_destroy(t_data *data);
 int		on_keypress(int key, t_data *data);
 
-/*utils*/
-char	*get_nexttt_line(int fd);
+/* utils.c */
+char	**ft_create_dup_map(t_data *data);
+void	ft_write(t_data *data, int x, int counter);
+void	ft_error_exit(t_data *data, char *str);
+void	ft_destroy(t_data *data);
 
+/*utils2.c*/
+int		ft_check_exit(t_data *data, int y_axis, int x_axis, int new);
+int		ft_check_exit_w(t_data *data, int y_axis, int x_axis, int new);
+void	ft_update_tiles(t_data *data, int y_axis, int x_axis, char tile);
+
+/* render.c */
+void	ft_image_window(t_data *data, int x, int y, char *image);
+void	ft_render_screen(t_data *data);
+void	ft_image_error(t_data *data);
+
+/* key_map.c  && valid_map_check.c  && valid_map_structure.c*/
+int		ft_check_postion(t_data *data, int y_axis, int x_axis);
+int		on_keypress(int key, t_data *data);
+void	ft_data_init(t_data *data);
+void	ft_valid_path_check(t_data *data);
+int		ft_valid_map_check(t_data *data, char *str);
 #endif

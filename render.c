@@ -6,7 +6,7 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 07:10:32 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/06 07:51:37 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:32:50 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	ft_image_error(t_data *data)
 {
 	if (!data->floor)
-		ft_error_exit(data, "FLOOR_XPM error");
+		ft_error_exit(data, "FLOOR_XPM error\n");
 	if (!data->wall)
-		ft_error_exit(data, "WALL_XPM error");
+		ft_error_exit(data, "WALL_XPM error\n");
 	if (!data->coin)
-		ft_error_exit(data, "COIN_XPM error");
+		ft_error_exit(data, "COIN_XPM error\n");
 	if (!data->player)
-		ft_error_exit(data, "PLAYER_XPM error");
+		ft_error_exit(data, "PLAYER_XPM error\n");
 	if (!data->exit)
-		ft_error_exit(data, "EXIT_XPM error");
+		ft_error_exit(data, "EXIT_XPM error\n");
 }
 
 static void	ft_open_image(t_data *data)
@@ -44,6 +44,12 @@ static void	ft_open_image(t_data *data)
 	ft_image_error(data);
 }
 
+void	ft_image_window(t_data *data, int x, int y, char *image)
+{
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		image, x * TILE_SIZE, y * TILE_SIZE);
+}
+
 void	ft_render_screen(t_data *data)
 {
 	int	x;
@@ -57,20 +63,15 @@ void	ft_render_screen(t_data *data)
 		while (++x < data->map.column)
 		{
 			if (data->map.map[y][x] == '1')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->wall, x * TILE_SIZE, y * TILE_SIZE);
+				ft_image_window(data, x, y, data->wall);
 			else if (data->map.map[y][x] == '0')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->floor, x * TILE_SIZE, y * TILE_SIZE);
+				ft_image_window(data, x, y, data->floor);
 			else if (data->map.map[y][x] == 'P')
-				mlx_put_image_to_window(data->mlx_ptr,
-					data->win_ptr, data->player, x * TILE_SIZE, y * TILE_SIZE);
+				ft_image_window(data, x, y, data->player);
 			else if (data->map.map[y][x] == 'C')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->coin, x * TILE_SIZE, y * TILE_SIZE);
+				ft_image_window(data, x, y, data->coin);
 			else if (data->map.map[y][x] == 'E')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->exit, x * TILE_SIZE, y * TILE_SIZE);
+				ft_image_window(data, x, y, data->exit);
 		}
 	}
 }

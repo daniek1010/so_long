@@ -6,12 +6,12 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:07:40 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/04 09:08:26 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:50:22 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include<stdio.h>
+#include <stdio.h>
 
 static char	*bytes_read(int fd, char *backup, char *buffer)
 {
@@ -55,10 +55,10 @@ static char	*ft_line(char *backup)
 			break ;
 		count++;
 	}
-	line = malloc(sizeof(char) * (count + 1));
+	line = malloc(sizeof(char) * (count + 2));
 	if (!line)
 		return (NULL);
-	ft_strlcpy(line, backup, count + 1);
+	ft_strlcpy(line, backup, count + 2);
 	if (line[0] == '\0')
 	{
 		free(line);
@@ -84,10 +84,10 @@ static char	*ft_update_backup(char *backup)
 		free (backup);
 		return (NULL);
 	}
-	new_back = malloc(sizeof(char) * (ft_strlen(backup) - count + 1));
+	new_back = malloc(sizeof(char) * (ft_strlen(backup) - count + 2));
 	if (!new_back)
 		return (NULL);
-	ft_strlcpy(new_back, backup + count + 1, ft_strlen(backup) - count + 1);
+	ft_strlcpy(new_back, backup + count + 1, ft_strlen(backup) - count + 2);
 	free(backup);
 	return (new_back);
 }

@@ -6,24 +6,11 @@
 /*   By: danevans <danevans@student.42.f>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 00:32:33 by danevans          #+#    #+#             */
-/*   Updated: 2024/05/06 08:23:51 by danevans         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:35:53 by danevans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	free_matrix(char *str[])
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
 
 char	**ft_create_dup_map(t_data *data)
 {
@@ -54,7 +41,10 @@ void	ft_write(t_data *data, int x, int counter)
 	else if (x == 2)
 		ft_printf("Moves: %d\n", counter);
 	else if (x == 3)
+	{
+		ft_printf("Moves: %d\n", counter);
 		ft_printf("collectable Remaining: %d\n", data->map.collectable);
+	}
 }
 
 void	ft_destroy(t_data *data)
