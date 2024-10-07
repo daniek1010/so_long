@@ -1,7 +1,7 @@
 /*
 ** mlx_destroy_image.c for MinilibX in 
 ** 
-** Made by Charlie Root
+** Made by Charle Root
 ** Login   <ol@epitech.net>
 ** 
 ** Started on  Tue Mar 12 10:25:15 2002 Charlie Root
